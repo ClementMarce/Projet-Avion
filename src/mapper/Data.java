@@ -14,6 +14,12 @@ class Data {
         avions.add(avion);
     }
 
+    public void updateAvionsPosition() {
+        for (Avion avion : avions) {
+            avion.updatePosition();
+        }
+    }
+
     public void removeAvion(Avion avion) {
         avions.remove(avion);
     }

@@ -5,6 +5,7 @@ class AirportSimulator {
     private static final double AIRPORT_LATITUDE = 48.8333;
     private static final double AIRPORT_LONGITUDE = 2.6167;
     private static final int MAX_AVIONS = 5;
+    private static final int UPDATE_INTERVAL = 15000; // 15 seconds
 
     private Data data;
 
@@ -13,24 +14,21 @@ class AirportSimulator {
     }
     public void start() {
         generateRandomAvions();
-        printAvions();
+        startAutoUpdateThread();
 
         // Simulation loop
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\n=== Air Traffic Control ===");
-            System.out.println("1. Afficher les avions");
-            System.out.println("2. Envoyer un ordre à un avion");
+            System.out.println("1. Envoyer un ordre à un avion");
             System.out.println("0. Quitter");
             System.out.print("Choix : ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
+            data.updateAvionsPosition();
 
             switch (choice) {
                 case 1:
-                    printAvions();
-                    break;
-                case 2:
                     sendOrder(scanner);
                     break;
                 case 0:
@@ -112,5 +110,19 @@ class AirportSimulator {
             }
         }
         return null;
+    }
+    private void startAutoUpdateThread() {
+        Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(UPDATE_INTERVAL);
+                    data.updateAvionsPosition();
+                    printAvions();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 }
