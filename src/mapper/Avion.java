@@ -1,7 +1,7 @@
 package mapper;
 import java.util.Random;
 
-class Avion {
+public class Avion {
     private static final int MAX_ALTITUDE = 10000;
     private static final int MAX_SPEED = 500;
     private static final int MAX_ANGLE = 360;

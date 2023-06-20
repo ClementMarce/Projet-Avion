@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class Data {
+public class Data {
     private List<Avion> avions;
 
     public Data() {

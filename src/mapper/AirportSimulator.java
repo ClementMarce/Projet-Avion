@@ -25,7 +25,6 @@ class AirportSimulator {
             System.out.print("Choix : ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline character
-            data.updateAvionsPosition();
 
             switch (choice) {
                 case 1:
