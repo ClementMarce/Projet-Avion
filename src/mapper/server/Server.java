@@ -3,8 +3,6 @@ import mapper.Avion;
 import mapper.Position;
 import mapper.Data;
 import java.nio.ByteBuffer;
-
-
 import java.io.IOException;
 import java.net.*;
 
@@ -18,26 +16,22 @@ public class Server {
     public final static int portServer = 8533;
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
-    public static void main(String[] argv) throws Exception
-    {
-
+    public static void main(String[] argv) throws Exception{
         data = new Data();
         generateRandomAvions();
         startAutoUpdateThread();
-
         DatagramSocket socket = new DatagramSocket(portServer);
         String[] data_flights = new String[3];
         for (int i=0; i < 3 ; i++){
             data_flights[i] = String.valueOf(i+10);
         }
-        while(true)
-        {
+        while(true){
             DatagramPacket theOtherData = new DatagramPacket(buffer,buffer.length);
             socket.receive(theOtherData);
             String vitesseUpdateString = new String(theOtherData.getData());
-            int vitesseUpdate = ByteBuffer.wrap(theOtherData.getData()).getInt();
-            System.out.println(vitesseUpdate);
-
+            String[] receivedData = vitesseUpdateString.split(";");
+            int vitesseUpdate = Integer.parseInt(receivedData[0]);
+            System.out.println("increase the speed by : " + vitesseUpdate);
             int vitesse = data.getAvions().get(0).getSpeed();
             vitesse += vitesseUpdate;
             data.getAvions().get(0).setSpeed(vitesse);
@@ -80,19 +74,17 @@ public class Server {
         thread.start();
     }
 
-    private static void printAvions() {
-        System.out.println("\n=== Avions ===");
-        for (Avion avion : data.getAvions()) {
-            System.out.println(avion.getId() + ": " + avion.getPosition().getLatitude() + ", " +
-                    avion.getPosition().getLongitude() + " (Altitude: " + avion.getAltitude() +
-                    ", Cap: " + avion.getAngle() + ", Vitesse: " + avion.getSpeed() + ")");
-        }
-    }
+//    private static void printAvions() {
+//        System.out.println("\n=== Avions ===");
+//        for (Avion avion : data.getAvions()) {
+//            System.out.println(avion.getId() + ": " + avion.getPosition().getLatitude() + ", " +
+//                    avion.getPosition().getLongitude() + " (Altitude: " + avion.getAltitude() +
+//                    ", Cap: " + avion.getAngle() + ", Vitesse: " + avion.getSpeed() + ")");
+//        }
+//    }
 
     private static void sendAvionsPosition() throws IOException {
-
         InetAddress serveur = InetAddress.getByName("127.0.0.1");
-
         for (Avion avion : data.getAvions()) {
             String buf = avion.getId() + ";" + avion.getPosition().getLatitude() + ";" +
                     avion.getPosition().getLongitude() + ";" + avion.getAltitude() + ";" +

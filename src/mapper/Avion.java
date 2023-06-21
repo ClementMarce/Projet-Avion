@@ -5,7 +5,6 @@ public class Avion {
     private static final int MAX_ALTITUDE = 10000;
     private static final int MAX_SPEED = 500;
     private static final int MAX_ANGLE = 360;
-
     private String id;
     private Position position;
     private int altitude;
@@ -57,7 +56,6 @@ public class Avion {
         double dx = distance * Math.sin(Math.toRadians(angle));
         double dy = distance * Math.cos(Math.toRadians(angle));
         double dAltitude = (altitude * 15.0) / 60000.0; // Convert altitude from ft to km
-
         position = new Position(position.getLatitude() + dx, position.getLongitude() + dy);
         position = new Position(position.getLatitude(), position.getLongitude() + dAltitude);
     }
