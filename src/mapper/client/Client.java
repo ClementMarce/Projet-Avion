@@ -12,8 +12,7 @@ class Client{
 
         DatagramSocket socket = new DatagramSocket(Server.portClient);
         int nb = 0;
-        while(true)
-        {
+        while(true) {
             DatagramPacket data = new DatagramPacket(buffer,buffer.length);
             socket.receive(data);
             System.out.println(new String(data.getData()));
