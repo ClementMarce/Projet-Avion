@@ -7,6 +7,9 @@ class Client{
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
+
+        MyFrame frame = new MyFrame(); //Creates a new frame
+
         DatagramSocket socket = new DatagramSocket(Server.portClient);
         int nb = 0;
         while(true)
