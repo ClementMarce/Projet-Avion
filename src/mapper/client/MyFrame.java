@@ -5,10 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyFrame extends JFrame implements ActionListener{
-    JButton plane1 = new JButton(); //Creates a new plane
+    public JButton[] planes = new JButton[5];
+    private int nbPlanes = 0;
 
     MyFrame(){
-        ImageIcon planeIcon = new ImageIcon("img/plane.png"); //Creates an ImageIcon
         this.setTitle("Flights Radar"); //Sets the title of the frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exits the application when the frame is closed
         this.setResizable(false); //Makes it so the frame cannot be resized
@@ -18,26 +18,55 @@ public class MyFrame extends JFrame implements ActionListener{
         this.setIconImage(logoIcon.getImage()); //Changes the icon of the frame to the image
         this.getContentPane().setBackground(Color.GRAY); //Sets the background color to black
         this.setLayout(null);
-
-        plane1.setBounds(0,0,120,120); //Sets the size and position of the plane
-        plane1.addActionListener(this);
-        plane1.setText("Plane-1"); //Sets the text of the button
-        plane1.setIcon(planeIcon); //Sets the icon of the label to the image
-        plane1.setHorizontalTextPosition(JButton.CENTER);
-        plane1.setVerticalTextPosition(JButton.TOP);
-        plane1.setFont(new Font("Comic Sans",Font.BOLD,15));
-        plane1.setIconTextGap(-15);
-        plane1.setOpaque(false);
-        plane1.setContentAreaFilled(false);
-        plane1.setBorderPainted(false);
-
-        this.add(plane1); //Adds the label to the frame
     }
+
+    public void CreateNewPlane(String planeName){
+        JButton plane = new JButton();
+        planes[nbPlanes] = plane;
+        plane.setName(planeName);
+        plane.setText(planeName);
+        DrawNewPlane(plane);
+        nbPlanes++;
+    }
+
+    private void DrawNewPlane(JButton plane)
+    {
+        ImageIcon planeIcon = new ImageIcon("img/plane.png"); //Creates an ImageIcon
+
+        //plane.setBounds(0,0,120,120); //Sets the size and position of the plane
+        plane.addActionListener(this);
+        //plane.setText("Plane-1"); //Sets the text of the button
+        plane.setIcon(planeIcon); //Sets the icon of the label to the image
+        plane.setHorizontalTextPosition(JButton.CENTER);
+        plane.setVerticalTextPosition(JButton.TOP);
+        plane.setFont(new Font("Comic Sans",Font.BOLD,15));
+        plane.setIconTextGap(-15);
+        plane.setOpaque(false);
+        plane.setContentAreaFilled(false);
+        plane.setBorderPainted(false);
+
+        this.add(plane); //Adds the label to the frame
+    }
+
+    public void updatePlane(String planeName, int x, int y, String info){
+        for (int i = 0; i < nbPlanes; i++){
+            String iterationPlaneName=planes[i].getName();
+            if (iterationPlaneName.equals(planeName)){
+                _updatePlane(planes[i], x, y, info);
+            }
+        }
+    }
+
+    private void _updatePlane(JButton plane, int x, int y, String info){
+        plane.setBounds(x,y,120,120);
+        plane.setText(info); //Sets the text of the button
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == plane1){
-            System.out.println("Hello");
-        }
+    //    if (e.getSource() == plane1){
+      //      System.out.println("Hello");
+     //   }
     }
 }

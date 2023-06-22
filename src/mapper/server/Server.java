@@ -18,8 +18,9 @@ public class Server {
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
         data = new Data();
-        generateRandomAvions();
+        generateAvions();
         startAutoUpdateThread();
+
         DatagramSocket socket = new DatagramSocket(portServer);
         String[] data_flights = new String[3];
         for (int i=0; i < 3 ; i++){
@@ -52,9 +53,9 @@ public class Server {
     }
 
 
-    private static void generateRandomAvions() {
+    private static void generateAvions() {
         for (int i = 0; i < MAX_AVIONS; i++) {
-            Avion avion = Avion.generateRandomAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE));
+            Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane"+String.valueOf(i));
             data.addAvion(avion);
         }
     }

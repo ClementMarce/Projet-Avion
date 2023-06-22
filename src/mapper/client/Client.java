@@ -1,4 +1,6 @@
 package mapper.client;
+import mapper.Avion;
+import mapper.Position;
 import mapper.server.Server;
 import java.io.IOException;
 import java.net.*;
@@ -9,6 +11,9 @@ class Client{
     public static void main(String[] argv) throws Exception{
 
         MyFrame frame = new MyFrame(); //Creates a new frame
+        for (int i = 0; i < 5; i++) {
+            frame.CreateNewPlane("plane"+String.valueOf(i));
+        }
 
         DatagramSocket socket = new DatagramSocket(Server.portClient);
         int nb = 0;
@@ -16,12 +21,21 @@ class Client{
             DatagramPacket data = new DatagramPacket(buffer,buffer.length);
             socket.receive(data);
             System.out.println(new String(data.getData()));
+            var dataReceived = new String(data.getData()).split(";");
+            int x = TransformCoordonnates(Double.parseDouble(dataReceived[1]));
+            int y = TransformCoordonnates(Double.parseDouble(dataReceived[2]));
+            frame.updatePlane(dataReceived[0],x,y, dataReceived[0]+" "+dataReceived[1]+" "+dataReceived[2]);
+
             if (nb%10 == 0){
                 ChangeVitesse(10);
             }
             nb++;
-            Thread.sleep(1000);
+            Thread.sleep(10);
         }
+    }
+
+    private static int TransformCoordonnates(double coordonnees){
+        return (int) (coordonnees * 10);
     }
 
     private static void ChangeVitesse(int vitesse) throws IOException {

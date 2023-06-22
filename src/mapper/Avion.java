@@ -60,14 +60,13 @@ public class Avion {
         position = new Position(position.getLatitude(), position.getLongitude() + dAltitude);
     }
 
-    public static Avion generateRandomAvion(Position center) {
+    public static Avion generateAvion(Position center, String name) {
         Random random = new Random();
-        String id = "Avion-" + random.nextInt(100);
         double latitude = center.getLatitude() + random.nextDouble() - 0.5;
         double longitude = center.getLongitude() + random.nextDouble() - 0.5;
         int altitude = random.nextInt(MAX_ALTITUDE);
         int speed = random.nextInt(MAX_SPEED);
         int angle = random.nextInt(MAX_ANGLE);
-        return new Avion(id, new Position(latitude, longitude), altitude, speed, angle);
+        return new Avion(name, new Position(latitude, longitude), altitude, speed, angle);
     }
 }
