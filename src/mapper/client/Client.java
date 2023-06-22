@@ -9,12 +9,10 @@ class Client{
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
-
         MyFrame frame = new MyFrame(); //Creates a new frame
         for (int i = 0; i < 5; i++) {
             frame.CreateNewPlane("plane"+String.valueOf(i));
         }
-
         DatagramSocket socket = new DatagramSocket(Server.portClient);
         int nb = 0;
         while(true) {
@@ -25,7 +23,6 @@ class Client{
             int x = TransformCoordonnates(Double.parseDouble(dataReceived[1]));
             int y = TransformCoordonnates(Double.parseDouble(dataReceived[2]));
             frame.updatePlane(dataReceived[0],x,y, dataReceived[0]+" "+dataReceived[1]+" "+dataReceived[2]);
-
             if (nb%10 == 0){
                 ChangeVitesse(10);
             }

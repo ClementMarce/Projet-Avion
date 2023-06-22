@@ -32,7 +32,6 @@ public class MyFrame extends JFrame implements ActionListener{
     private void DrawNewPlane(JButton plane)
     {
         ImageIcon planeIcon = new ImageIcon("img/plane.png"); //Creates an ImageIcon
-
         //plane.setBounds(0,0,120,120); //Sets the size and position of the plane
         plane.addActionListener(this);
         //plane.setText("Plane-1"); //Sets the text of the button
@@ -44,7 +43,6 @@ public class MyFrame extends JFrame implements ActionListener{
         plane.setOpaque(false);
         plane.setContentAreaFilled(false);
         plane.setBorderPainted(false);
-
         this.add(plane); //Adds the label to the frame
     }
 
