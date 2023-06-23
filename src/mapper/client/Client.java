@@ -24,7 +24,7 @@ class Client{
             int y = TransformCoordonnates(Double.parseDouble(dataReceived[2]));
             frame.updatePlane(dataReceived[0],x,y, dataReceived[0]+" "+dataReceived[1]+" "+dataReceived[2]);
             if (nb%10 == 0){
-                ChangeVitesse(10);
+                ChangeVitesse(20);
             }
             nb++;
             Thread.sleep(10);

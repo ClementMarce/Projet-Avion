@@ -15,9 +15,6 @@ public class Data {
             avion.updatePosition();
         }
     }
-    public void removeAvion(Avion avion) {
-        avions.remove(avion);
-    }
     public List<Avion> getAvions() {
         return avions;
     }
