@@ -1,10 +1,9 @@
 package mapper.client;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 
-public class MyFrame extends JFrame implements ActionListener{
+public class MyFrame extends JFrame{
     public JButton[] planes = new JButton[5];
     private int nbPlanes = 0;
 
@@ -24,7 +23,62 @@ public class MyFrame extends JFrame implements ActionListener{
         JButton plane = new JButton();
         planes[nbPlanes] = plane;
         plane.setName(planeName);
-        plane.setText(planeName);
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem option1 = new JMenuItem("Speed +");
+        JMenuItem option2 = new JMenuItem("Speed -");
+        JMenuItem option3 = new JMenuItem("Flight Level +");
+        JMenuItem option4 = new JMenuItem("Flight Level -");
+        JMenuItem option5 = new JMenuItem("Turn Right");
+        JMenuItem option6 = new JMenuItem("Turn Left");
+        popupMenu.add(option1);
+        option1.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "Speed", 100);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(option2);
+        option2.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "Speed", -100);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(option3);
+        option3.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "FlightLevel", 100);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(option4);
+        option4.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "FlightLevel", -100);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(option5);
+        option5.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "ChangeCap", -90);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        popupMenu.add(option6);
+        option6.addActionListener(e -> {
+            try {
+                Client.ChangeValues(planeName, "ChangeCap", 90);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        plane.addActionListener(e -> popupMenu.show(plane, 0, plane.getHeight()));
         DrawNewPlane(plane);
         nbPlanes++;
     }
@@ -32,12 +86,11 @@ public class MyFrame extends JFrame implements ActionListener{
     private void DrawNewPlane(JButton plane)
     {
         ImageIcon planeIcon = new ImageIcon("img/plane.png"); //Creates an ImageIcon
-        plane.addActionListener(this);
         plane.setIcon(planeIcon); //Sets the icon of the label to the image
         plane.setHorizontalTextPosition(JButton.CENTER);
         plane.setVerticalTextPosition(JButton.TOP);
         plane.setForeground(Color.WHITE);
-        plane.setFont(new Font("Comic Sans",Font.BOLD,15));
+        plane.setFont(new Font("Comic Sans",Font.BOLD,10));
         plane.setIconTextGap(-15);
         plane.setContentAreaFilled(false);
         plane.setBorderPainted(false);
@@ -63,13 +116,6 @@ public class MyFrame extends JFrame implements ActionListener{
         plane.setText(info); //Sets the text of the button
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    //    if (e.getSource() == plane1){
-      //      System.out.println("Hello");
-     //   }
-    }
-
     void drawRadar(){
         this.drawCircleByCenter(this.getGraphics(), 500, 500, 450,10);
         this.drawCircleByCenter(this.getGraphics(), 500, 500, 350,5);
@@ -87,7 +133,6 @@ public class MyFrame extends JFrame implements ActionListener{
         gra.setFont(new Font("Comic Sans", Font.PLAIN, 24));
         gra.drawString(text, x, y);
     }
-
     private void drawLine(Graphics gr, int i, int i1, int i2, int i3, int i4, int strokeWidth) {
         Graphics2D g2d = (Graphics2D) gr;
         gr.setColor(new Color(0,199,23));

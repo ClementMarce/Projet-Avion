@@ -12,7 +12,6 @@ class Client{
             frame.CreateNewPlane("plane-"+ i);
         }
         DatagramSocket socket = new DatagramSocket(Server.portClient);
-        int nb = 0;
         while(true) {
             DatagramPacket data = new DatagramPacket(buffer,buffer.length);
             socket.receive(data);
@@ -20,27 +19,23 @@ class Client{
             var dataReceived = new String(data.getData()).split(";");
             int x = TransformCoordonnates(Double.parseDouble(dataReceived[1]));
             int y = TransformCoordonnates(Double.parseDouble(dataReceived[2]));
-            frame.updatePlane(dataReceived[0],x,y, dataReceived[0]+" "+dataReceived[1]+" "+dataReceived[2]);
-            if (nb%10 == 0){
-                ChangeVitesse(20);
-            }
-            nb++;
+            frame.updatePlane(dataReceived[0],x,y, dataReceived[0]+" "+dataReceived[3]);
             Thread.sleep(10);
             frame.drawRadar();
         }
     }
 
-    private static int TransformCoordonnates(double coordonnees){
-        return (int) (coordonnees);
-    }
-
-    private static void ChangeVitesse(int vitesse) throws IOException {
+    public static void ChangeValues(String avionID, String command, int value) throws IOException {
         InetAddress serveur = InetAddress.getByName("127.0.0.1");
-        String buf = vitesse + ";";
+        String buf = command + ";" + avionID + ";" + value + ";";
         int length = buf.length();
         byte[] buffer = buf.getBytes();
-        DatagramPacket dataSent = new DatagramPacket(buffer,length,serveur, Server.portServer);
+        DatagramPacket dataSent = new DatagramPacket(buffer, length, serveur, Server.portServer);
         DatagramSocket socket = new DatagramSocket();
         socket.send(dataSent);
+    }
+
+    private static int TransformCoordonnates(double coordonnees){
+        return (int) (coordonnees);
     }
 }

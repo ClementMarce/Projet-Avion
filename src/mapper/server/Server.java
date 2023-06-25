@@ -29,12 +29,44 @@ public class Server {
             socket.receive(theOtherData);
             String vitesseUpdateString = new String(theOtherData.getData());
             String[] receivedData = vitesseUpdateString.split(";");
-            int vitesseUpdate = Integer.parseInt(receivedData[0]);
-            System.out.println("increase the speed by : " + vitesseUpdate);
-            int vitesse = data.getAvions().get(0).getSpeed();
-            vitesse += vitesseUpdate;
-            data.getAvions().get(0).setSpeed(vitesse);
+            String command = receivedData[0];
+            String planeName = receivedData[1];
+            int value = Integer.parseInt(receivedData[2]);
+            Avion avion = getAvionByName(planeName);
+            if (avion == null) continue;
+            switch (command) {
+                case "Speed":
+                    int vitesse = avion.getSpeed();
+                    vitesse += value;
+                    if (vitesse < 0) vitesse = 0;
+                    if (vitesse > 2000) vitesse = 2000;
+                    avion.setSpeed(vitesse);
+                    break;
+                case "FlightLevel":
+                    int flightLevel = avion.getAltitude();
+                    flightLevel += value;
+                    if (flightLevel < 0) flightLevel = 0;
+                    if (flightLevel > 10000) flightLevel = 10000;
+                    avion.setAltitude(flightLevel);
+                    break;
+                case "ChangeCap":
+                    int angle = avion.getAngle();
+                    angle += value;
+                    if (angle > 360) angle -= 360;
+                    if (angle < 0) angle += 360;
+                    avion.setAngle(angle);
+                    break;
+            }
         }
+    }
+
+    private static Avion getAvionByName(String name) {
+        for (Avion avion : data.getAvions()) {
+            if (avion.getId().equals(name)) {
+                return avion;
+            }
+        }
+        return null;
     }
 
     private static void generateAvions() {

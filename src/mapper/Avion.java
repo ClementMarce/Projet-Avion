@@ -2,8 +2,6 @@ package mapper;
 import java.util.Random;
 
 public class Avion {
-    private static final int MAX_ALTITUDE = 10000;
-    private static final int MAX_SPEED = 500;
     private static final int MAX_ANGLE = 360;
     private final String id;
     private Position position;
@@ -62,10 +60,10 @@ public class Avion {
 
     public static Avion generateAvion(Position center, String name) {
         Random random = new Random();
-        double latitude = center.getLatitude();
-        double longitude = center.getLongitude();
-        int altitude = random.nextInt(MAX_ALTITUDE);
-        int speed = random.nextInt(MAX_SPEED);
+        double latitude = center.getLatitude() + (random.nextDouble()* 500 - 250);
+        double longitude = center.getLongitude() + (random.nextDouble()* 500 - 250);
+        int altitude = 1000 + random.nextInt(9)*1000;
+        int speed = 1000;
         int angle = random.nextInt(MAX_ANGLE);
         return new Avion(name, new Position(latitude, longitude), altitude, speed, angle);
     }
