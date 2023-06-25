@@ -5,7 +5,7 @@ public class Avion {
     private static final int MAX_ALTITUDE = 10000;
     private static final int MAX_SPEED = 500;
     private static final int MAX_ANGLE = 360;
-    private String id;
+    private final String id;
     private Position position;
     private int altitude;
     private int speed;
@@ -62,8 +62,8 @@ public class Avion {
 
     public static Avion generateAvion(Position center, String name) {
         Random random = new Random();
-        double latitude = center.getLatitude() + random.nextDouble() - 0.5;
-        double longitude = center.getLongitude() + random.nextDouble() - 0.5;
+        double latitude = center.getLatitude();
+        double longitude = center.getLongitude();
         int altitude = random.nextInt(MAX_ALTITUDE);
         int speed = random.nextInt(MAX_SPEED);
         int angle = random.nextInt(MAX_ANGLE);

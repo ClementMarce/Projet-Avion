@@ -7,10 +7,10 @@ import java.net.*;
 
 public class Server {
     private static Data data;
-    private static final double AIRPORT_LATITUDE = 48.8333;
-    private static final double AIRPORT_LONGITUDE = 2.6167;
+    private static final double AIRPORT_LATITUDE = 500;
+    private static final double AIRPORT_LONGITUDE = 500;
     private static final int MAX_AVIONS = 5;
-    private static final int UPDATE_INTERVAL = 15000; // 15 seconds
+    private static final int UPDATE_INTERVAL = 1000; // 15 seconds
     public final static int portClient = 8532;
     public final static int portServer = 8533;
     final static int taille = 1024;
@@ -38,8 +38,8 @@ public class Server {
     }
 
     private static void generateAvions() {
-        for (int i = 0; i < MAX_AVIONS; i++) {
-            Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane"+String.valueOf(i));
+        for (int i = 1; i < MAX_AVIONS + 1; i++) {
+            Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane-"+ i);
             data.addAvion(avion);
         }
     }
