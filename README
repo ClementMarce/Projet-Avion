@@ -1,6 +1,6 @@
 Pour utiliser notre aiguilleur du ciel :
 1)	Lancer le serveur et attendre 5 secondes.
-2)	Lancer le client  l’interface, sous forme de radar, apparait. La position des avions est mise à jour toutes les secondes. L’altitude de l’avion est indiquée à côté de son nom.
+2)	Lancer le client --> l’interface, sous forme de radar, apparait. La position des avions est mise à jour toutes les secondes. L’altitude de l’avion est indiquée à côté de son nom.
 3)	Pour modifier les informations d’un avion, cliquer sur celui-ci.
   Speed + augmente de 100 km/h la vitesse de l’avion
   Speed – diminue de 100 km/h la vitesse de l’avion
