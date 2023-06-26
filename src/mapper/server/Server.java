@@ -4,6 +4,7 @@ import mapper.Position;
 import mapper.Data;
 import java.io.IOException;
 import java.net.*;
+import java.sql.*;
 
 public class Server {
     private static Data data;
@@ -73,6 +74,22 @@ public class Server {
         for (int i = 1; i < MAX_AVIONS + 1; i++) {
             Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane-"+ i);
             data.addAvion(avion);
+//            try{
+//                Connection connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                String requete = "INSERT INTO avions (Avion_ID, Altitude, Cap, Latitude, Longitude, vitesse)" + "VALUES (?,?,?,?,?,?)";
+//                PreparedStatement statement = connexion.prepareStatement(requete);
+//                statement.setString(1, "plane-"+ i); // Valeur de Avion_ID
+//                statement.setInt(2,0); // Valeur de Altitude
+//                statement.setInt(3,0); // Valeur de Cap
+//                statement.setInt(4,0); // Valeur de Latitude
+//                statement.setInt(5,0); // Valeur de Longitude
+//                statement.setInt(6,0); // Valeur de Vitesse
+//                statement.close();
+//                connexion.close();
+//            }
+//            catch (SQLException e){
+//                System.out.println("Erreur de connexion a la base de donnees");
+//            }
         }
     }
 
@@ -102,6 +119,21 @@ public class Server {
             DatagramPacket dataSent = new DatagramPacket(buffer,length,serveur, portClient);
             DatagramSocket socket = new DatagramSocket();
             socket.send(dataSent);
+//            try{
+//                Connection connexion2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                String requete2 = "UPDATE avions SET Altitude = ?, Cap = ?, Latitude = ?, Longitude = ?, vitesse = ? WHERE Avion_ID = ?";
+//                PreparedStatement statement = connexion2.prepareStatement(requete2);
+//                statement.setInt(1,avion.getAltitude()); // Valeur d'Altitude
+//                statement.setInt(2,avion.getAngle()); // Valeur de Cap
+//                statement.setInt(3,(int)avion.getPosition().getLatitude()); // Valeur de Latitude
+//                statement.setInt(4,(int)avion.getPosition().getLongitude()); // Valeur de Longitude
+//                statement.setInt(5,avion.getSpeed()); // Valeur de Vitesse
+//                statement.close();
+//                connexion2.close();
+//            }
+//            catch (SQLException e){
+//                System.out.println("Erreur de connexion a la base de donnees");
+//            }
         }
     }
 }

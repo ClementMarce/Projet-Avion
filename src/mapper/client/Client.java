@@ -7,7 +7,10 @@ class Client{
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
-        MyFrame frame = new MyFrame(); //Creates a new frame
+
+
+
+        MyFrame frame = new MyFrame();
         for (int i = 1; i < 6; i++) {
             frame.CreateNewPlane("plane-"+ i);
         }

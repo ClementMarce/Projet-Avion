@@ -2,6 +2,8 @@ package mapper.client;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.*;
+import java.util.Date;
 
 public class MyFrame extends JFrame{
     public JButton[] planes = new JButton[5];
@@ -34,6 +36,20 @@ public class MyFrame extends JFrame{
         option1.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "Speed", 100);
+//                try {
+//                    Connection connexion3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete3 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion3.prepareStatement(requete3);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"Speed+");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion3.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -42,6 +58,20 @@ public class MyFrame extends JFrame{
         option2.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "Speed", -100);
+//                try {
+//                    Connection connexion4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete4 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion4.prepareStatement(requete4);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"Speed-");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion4.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -50,6 +80,20 @@ public class MyFrame extends JFrame{
         option3.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "FlightLevel", 100);
+//                try {
+//                    Connection connexion5 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete5 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion5.prepareStatement(requete5);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"FlightLevel+");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion5.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -58,6 +102,20 @@ public class MyFrame extends JFrame{
         option4.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "FlightLevel", -100);
+//                try {
+//                    Connection connexion6 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete6 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion6.prepareStatement(requete6);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"FlightLevel-");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion6.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -66,6 +124,20 @@ public class MyFrame extends JFrame{
         option5.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "ChangeCap", -90);
+//                try {
+//                    Connection connexion7 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete7 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion7.prepareStatement(requete7);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"ChangeCap-");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion7.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -74,6 +146,20 @@ public class MyFrame extends JFrame{
         option6.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "ChangeCap", 90);
+//                try {
+//                    Connection connexion8 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
+//                    String requete8 = "INSERT INTO ordre (OrdreDate, Type, Avion_ID)" + "VALUES (?,?,?)";
+//                    PreparedStatement statement = connexion8.prepareStatement(requete8);
+//                    Date date = new Date();
+//                    Timestamp timestamp = new Timestamp(date.getTime());
+//                    statement.setTimestamp(1,timestamp);
+//                    statement.setString(2,"ChangeCap+");
+//                    statement.setString(3,planeName);
+//                    statement.close();
+//                    connexion8.close();
+//                } catch (SQLException ex) {
+//                    System.out.println("Erreur de connexion a la base de donnees");
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
