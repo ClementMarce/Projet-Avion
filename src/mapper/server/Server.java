@@ -70,27 +70,36 @@ public class Server {
         return null;
     }
 
-    private static void generateAvions() {
+    private static void generateAvions() throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String myUrl = "jdbc:mysql://localhost:3306/aerovista";
+        Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+        Statement st = conn.createStatement();
+        st.executeUpdate("DROP TABLE Ordre;");
+        st.executeUpdate("DROP TABLE Data;");
+        st.executeUpdate("DROP TABLE Avion;");
+
+        st.executeUpdate("CREATE TABLE Avion(Avion_ID VARCHAR(50),PRIMARY KEY(Avion_ID));");
+        st.executeUpdate("CREATE TABLE Ordre(Ordre_ID INT AUTO_INCREMENT, OrdreDate DATETIME, Type VARCHAR(50), Avion_ID VARCHAR(50) NOT NULL, PRIMARY KEY(Ordre_ID),FOREIGN KEY(Avion_ID) REFERENCES Avion(Avion_ID));");
+        st.executeUpdate("CREATE TABLE Data(Data_ID INT AUTO_INCREMENT,Latitude INT,Longitude INT,Altitude INT,Vitesse INT,Cap INT, DataDate DATETIME, Avion_ID VARCHAR(50) NOT NULL, PRIMARY KEY(Data_ID),FOREIGN KEY(Avion_ID) REFERENCES Avion(Avion_ID));");
+        st.close();
+
         for (int i = 1; i < MAX_AVIONS + 1; i++) {
             Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane-"+ i);
             data.addAvion(avion);
-//            try{
-//                Connection connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
-//                String requete = "INSERT INTO avions (Avion_ID, Altitude, Cap, Latitude, Longitude, vitesse)" + "VALUES (?,?,?,?,?,?)";
-//                PreparedStatement statement = connexion.prepareStatement(requete);
-//                statement.setString(1, "plane-"+ i); // Valeur de Avion_ID
-//                statement.setInt(2,0); // Valeur de Altitude
-//                statement.setInt(3,0); // Valeur de Cap
-//                statement.setInt(4,0); // Valeur de Latitude
-//                statement.setInt(5,0); // Valeur de Longitude
-//                statement.setInt(6,0); // Valeur de Vitesse
-//                statement.close();
-//                connexion.close();
-//            }
-//            catch (SQLException e){
-//                System.out.println("Erreur de connexion a la base de donnees");
-//            }
+            try{
+                String query = "INSERT INTO avion (Avion_ID) VALUES (\"plane-"+i+"\")";
+                st = conn.createStatement();
+                st.executeUpdate(query);
+                st.close();
+                System.out.println("Avion_ID:"+i);
+            }
+            catch (SQLException e){
+                System.out.println("Erreur de connexion a la base de donnees: "+e.getMessage());
+            }
         }
+        conn.close();
     }
 
     private static void startAutoUpdateThread() {
@@ -119,21 +128,21 @@ public class Server {
             DatagramPacket dataSent = new DatagramPacket(buffer,length,serveur, portClient);
             DatagramSocket socket = new DatagramSocket();
             socket.send(dataSent);
-//            try{
-//                Connection connexion2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/avions", "root", "root");
-//                String requete2 = "UPDATE avions SET Altitude = ?, Cap = ?, Latitude = ?, Longitude = ?, vitesse = ? WHERE Avion_ID = ?";
-//                PreparedStatement statement = connexion2.prepareStatement(requete2);
-//                statement.setInt(1,avion.getAltitude()); // Valeur d'Altitude
-//                statement.setInt(2,avion.getAngle()); // Valeur de Cap
-//                statement.setInt(3,(int)avion.getPosition().getLatitude()); // Valeur de Latitude
-//                statement.setInt(4,(int)avion.getPosition().getLongitude()); // Valeur de Longitude
-//                statement.setInt(5,avion.getSpeed()); // Valeur de Vitesse
-//                statement.close();
-//                connexion2.close();
-//            }
-//            catch (SQLException e){
-//                System.out.println("Erreur de connexion a la base de donnees");
-//            }
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                String myUrl = "jdbc:mysql://localhost:3306/aerovista";
+                Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+                Statement st = conn.createStatement();
+                String query = "INSERT INTO Data (`Latitude`,`Longitude`,`Altitude`,`Vitesse`,`Cap`,`DataDate`,`Avion_ID`) VALUES("+avion.getPosition().getLatitude()+","+avion.getPosition().getLongitude()+","+avion.getAltitude()+","+avion.getSpeed()+","+avion.getAngle()+",CURRENT_TIMESTAMP,'"+avion.getId()+"');";
+                st.executeUpdate(query);
+                st.close();
+                conn.close();
+            }
+            catch (SQLException e){
+                System.out.println("Erreur de connexion a la base de donnees:"+e.getMessage());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

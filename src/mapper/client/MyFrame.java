@@ -13,7 +13,7 @@ public class MyFrame extends JFrame{
         this.setTitle("Flights Radar"); //Sets the title of the frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exits the application when the frame is closed
         this.setResizable(false); //Makes it so the frame cannot be resized
-        this.setSize(1000,1000); //Sets the frame size to 420x420 pixels
+        this.setSize(1000,1000); //Sets the frame size
         this.setVisible(true); //Makes the frame visible
         ImageIcon logoIcon = new ImageIcon("img/radar-logo-1.png"); //Creates an ImageIcon
         this.setIconImage(logoIcon.getImage()); //Changes the icon of the frame to the image
