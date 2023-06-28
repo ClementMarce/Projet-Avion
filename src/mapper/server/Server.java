@@ -71,7 +71,6 @@ public class Server {
     }
 
     private static void generateAvions() throws ClassNotFoundException, SQLException {
-
         Class.forName("com.mysql.cj.jdbc.Driver");
         String myUrl = "jdbc:mysql://localhost:3306/aerovista";
         Connection conn = DriverManager.getConnection(myUrl, "root", "root");
@@ -79,12 +78,10 @@ public class Server {
         st.executeUpdate("DROP TABLE Ordre;");
         st.executeUpdate("DROP TABLE Data;");
         st.executeUpdate("DROP TABLE Avion;");
-
         st.executeUpdate("CREATE TABLE Avion(Avion_ID VARCHAR(50),PRIMARY KEY(Avion_ID));");
         st.executeUpdate("CREATE TABLE Ordre(Ordre_ID INT AUTO_INCREMENT, OrdreDate DATETIME, Type VARCHAR(50), Avion_ID VARCHAR(50) NOT NULL, PRIMARY KEY(Ordre_ID),FOREIGN KEY(Avion_ID) REFERENCES Avion(Avion_ID));");
         st.executeUpdate("CREATE TABLE Data(Data_ID INT AUTO_INCREMENT,Latitude INT,Longitude INT,Altitude INT,Vitesse INT,Cap INT, DataDate DATETIME, Avion_ID VARCHAR(50) NOT NULL, PRIMARY KEY(Data_ID),FOREIGN KEY(Avion_ID) REFERENCES Avion(Avion_ID));");
         st.close();
-
         for (int i = 1; i < MAX_AVIONS + 1; i++) {
             Avion avion = Avion.generateAvion(new Position(AIRPORT_LATITUDE, AIRPORT_LONGITUDE), "plane-"+ i);
             data.addAvion(avion);
