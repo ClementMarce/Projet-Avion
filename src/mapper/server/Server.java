@@ -7,18 +7,20 @@ import java.net.*;
 import java.sql.*;
 
 public class Server {
+    private static final String Url = "jdbc:mysql://localhost:3306/aerovista";
+    private static final String HardBddUser = "root";
+    private static final String HardBddPassword = "root";
     private static Data data;
     private static final double AIRPORT_LATITUDE = 500;
     private static final double AIRPORT_LONGITUDE = 500;
     private static final int MAX_AVIONS = 5;
-    private static final int UPDATE_INTERVAL = 1000; // 15 seconds
+    private static final int UPDATE_INTERVAL = 1000;
     public final static int portClient = 8532;
     public final static int portServer = 8533;
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String Url = "jdbc:mysql://localhost:3306/aerovista";
         data = new Data();
         generateAvions();
         startAutoUpdateThread();
@@ -45,7 +47,7 @@ public class Server {
                     if (vitesse > 2000) vitesse = 2000;
                     avion.setSpeed(vitesse);
                     try {
-                        Connection co = DriverManager.getConnection(Url, "root", "root");
+                        Connection co = DriverManager.getConnection(Url, HardBddUser, HardBddPassword);
                         String query = "INSERT INTO Ordre (`OrdreDate`,`Type`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, 'Speed Update' , '"+avion.getId()+"');";
                         Statement sta = co.createStatement();
                         sta.executeUpdate(query);
@@ -62,7 +64,7 @@ public class Server {
                     if (flightLevel > 10000) flightLevel = 10000;
                     avion.setAltitude(flightLevel);
                     try {
-                        Connection co = DriverManager.getConnection(Url, "root", "root");
+                        Connection co = DriverManager.getConnection(Url, HardBddUser, HardBddPassword);
                         String query = "INSERT INTO Ordre (`OrdreDate`,`Type`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, 'Flight Level Update' , '"+avion.getId()+"');";
                         Statement sta = co.createStatement();
                         sta.executeUpdate(query);
@@ -79,7 +81,7 @@ public class Server {
                     if (angle < 0) angle += 360;
                     avion.setAngle(angle);
                     try {
-                        Connection co = DriverManager.getConnection(Url, "root", "root");
+                        Connection co = DriverManager.getConnection(Url, HardBddUser, HardBddPassword);
                         String query = "INSERT INTO Ordre (`OrdreDate`,`Type`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, 'Cap Update' , '"+avion.getId()+"');";
                         Statement sta = co.createStatement();
                         sta.executeUpdate(query);
@@ -104,8 +106,7 @@ public class Server {
 
     private static void generateAvions() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String myUrl = "jdbc:mysql://localhost:3306/aerovista";
-        Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+        Connection conn = DriverManager.getConnection(Url, HardBddUser, HardBddPassword);
         Statement st = conn.createStatement();
         st.executeUpdate("DROP TABLE Ordre;");
         st.executeUpdate("DROP TABLE Data;");
@@ -159,8 +160,7 @@ public class Server {
             socket.send(dataSent);
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                String myUrl = "jdbc:mysql://localhost:3306/aerovista";
-                Connection conn = DriverManager.getConnection(myUrl, "root", "root");
+                Connection conn = DriverManager.getConnection(Url, HardBddUser, HardBddPassword);
                 Statement st = conn.createStatement();
                 String query = "INSERT INTO Data (`Latitude`,`Longitude`,`Altitude`,`Vitesse`,`Cap`,`DataDate`,`Avion_ID`) VALUES("+avion.getPosition().getLatitude()+","+avion.getPosition().getLongitude()+","+avion.getAltitude()+","+avion.getSpeed()+","+avion.getAngle()+",CURRENT_TIMESTAMP,'"+avion.getId()+"');";
                 st.executeUpdate(query);
