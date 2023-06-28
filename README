@@ -1,10 +1,26 @@
 Pour utiliser notre aiguilleur du ciel :
-1)	Lancer le serveur et attendre 5 secondes.
-2)	Lancer le client --> l’interface, sous forme de radar, apparait. La position des avions est mise à jour toutes les secondes. L’altitude de l’avion est indiquée à côté de son nom.
-3)	Pour modifier les informations d’un avion, cliquer sur celui-ci.
-  Speed + augmente de 100 km/h la vitesse de l’avion
-  Speed – diminue de 100 km/h la vitesse de l’avion
-  Flight Level + augmente de 1000 m l’altitude
-  Flight Level – diminue de 1000 m l’altitude
+
+
+1) Créer une base de données MySQL. (aerovista)
+
+2) Créer les tables (Avion, Ordre & Data) grace au Script fourni dans le dossier "BDD".
+
+3) Renseigner la chaîne de connexion à la BDD sur la ligne 10 de la classe "Server".
+    private static final String Url = "jdbc:mysql://localhost:3306/aerovista";
+
+4) Renseigner les identifiants de connexion (User & Password) ligne 11 & 12.
+    private static final String HardBddUser = "root";
+    private static final String HardBddPassword = "root";
+
+5) Lancer la classe "server" et attendre 5 secondes.
+
+6) Lancer la classe "client"
+     l’interface, sous forme de radar, apparait. La position des avions est mise à jour toutes les secondes. L’altitude de l’avion est indiquée à côté de son nom.
+
+7) Pour modifier les informations d’un avion, cliquer sur celui-ci.
+  Speed + augmente de 100 km/h la vitesse de l’avion (2.000 km/h max)
+  Speed – diminue de 100 km/h la vitesse de l’avion (0 km/h min)
+  Flight Level + augmente de 100 m l’altitude (10.000 m min)
+  Flight Level – diminue de 100 m l’altitude (0 m min)
   Turn Right fait tourner l’avion de 90° vers la droite
   Turn Left fait tourner l’avion de 90° vers la gauche
