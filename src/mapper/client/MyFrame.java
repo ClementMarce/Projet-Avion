@@ -6,7 +6,6 @@ import java.io.IOException;
 public class MyFrame extends JFrame{
     public JButton[] planes = new JButton[5];
     private int nbPlanes = 0;
-
     MyFrame(){
         this.setTitle("Flights Radar"); //Sets the title of the frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Exits the application when the frame is closed

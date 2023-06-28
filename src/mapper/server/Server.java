@@ -17,12 +17,8 @@ public class Server {
     final static int taille = 1024;
     final static byte[] buffer = new byte[taille];
     public static void main(String[] argv) throws Exception{
-
 //        Class.forName("com.mysql.cj.jdbc.Driver");
-//        String myUrl = "jdbc:mysql://localhost:3306/aerovista";
-//        Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-//        Statement st = conn.createStatement();
-
+//        String Url = "jdbc:mysql://localhost:3306/aerovista";
         data = new Data();
         generateAvions();
         startAutoUpdateThread();
@@ -31,7 +27,6 @@ public class Server {
         for (int i=0; i < 3 ; i++){
             data_flights[i] = String.valueOf(i+10);
         }
-
         while(true){
             DatagramPacket theOtherData = new DatagramPacket(buffer,buffer.length);
             socket.receive(theOtherData);
@@ -49,16 +44,16 @@ public class Server {
                     if (vitesse < 0) vitesse = 0;
                     if (vitesse > 2000) vitesse = 2000;
                     avion.setSpeed(vitesse);
-
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
-
+//                    try {
+//                        Connection co = DriverManager.getConnection(Url, "root", "root");
+//                        String query = "INSERT INTO Ordre (`OrdreDate`) VALUES(CURRENT_TIMESTAMP);";
+//                        Statement sta = co.createStatement();
+//                        sta.executeUpdate(query);
+//                        sta.close();
+//                        co.close();
+//                    } catch (SQLException e) {
+//                        System.out.println("Erreur de connexion a la base de donnees");
+//                    }
                     break;
                 case "FlightLevel":
                     int flightLevel = avion.getAltitude();
@@ -66,9 +61,6 @@ public class Server {
                     if (flightLevel < 0) flightLevel = 0;
                     if (flightLevel > 10000) flightLevel = 10000;
                     avion.setAltitude(flightLevel);
-
-
-
                     break;
                 case "ChangeCap":
                     int angle = avion.getAngle();
@@ -76,9 +68,6 @@ public class Server {
                     if (angle > 360) angle -= 360;
                     if (angle < 0) angle += 360;
                     avion.setAngle(angle);
-
-
-
                     break;
             }
         }
