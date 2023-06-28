@@ -2,8 +2,6 @@ package mapper.client;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.sql.*;
 
 public class MyFrame extends JFrame{
     public JButton[] planes = new JButton[5];
@@ -21,12 +19,7 @@ public class MyFrame extends JFrame{
         this.setLayout(null);
     }
 
-    public void CreateNewPlane(String planeName) throws SQLException, ClassNotFoundException {
-//        Class.forName("com.mysql.cj.jdbc.Driver");
-//        String myUrl = "jdbc:mysql://localhost:3306/aerovista";
-//        Connection conn = DriverManager.getConnection(myUrl, "root", "root");
-//        Statement st = conn.createStatement();
-
+    public void CreateNewPlane(String planeName){
         JButton plane = new JButton();
         planes[nbPlanes] = plane;
         plane.setName(planeName);
@@ -42,14 +35,6 @@ public class MyFrame extends JFrame{
         option1.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "Speed", 100);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -59,14 +44,6 @@ public class MyFrame extends JFrame{
         option2.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "Speed", -100);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -76,14 +53,6 @@ public class MyFrame extends JFrame{
         option3.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "FlightLevel", 100);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -93,14 +62,6 @@ public class MyFrame extends JFrame{
         option4.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "FlightLevel", -100);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -110,14 +71,6 @@ public class MyFrame extends JFrame{
         option5.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "ChangeCap", -90);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -127,14 +80,6 @@ public class MyFrame extends JFrame{
         option6.addActionListener(e -> {
             try {
                 Client.ChangeValues(planeName, "ChangeCap", 90);
-//                try {
-//                    String query = "INSERT INTO ordre (`OrdreDate`,`Avion_ID`) VALUES(CURRENT_TIMESTAMP, "+planeName+");";
-//                    st.executeUpdate(query);
-//                    st.close();
-//                    conn.close();
-//                } catch (SQLException ex) {
-//                    System.out.println("Erreur de connexion a la base de donnees");
-//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
